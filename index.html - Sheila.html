@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Método SM de Estrutura Financeira - Sheila Machado</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0f1419;
+            color: #fff;
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #0f1419;
+        }
+
+        /* HEADER */
+        .header {
+            background: linear-gradient(135deg, #1a1f28 0%, #16191f 100%);
+            padding: 2.5rem 2rem;
+            border-bottom: 2px solid #ff6b35;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .header-logo {
+            width: 100px;
+            height: 100px;
+            background: #ff6b35;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 11px;
+            color: #fff;
+            text-align: center;
+            padding: 8px;
+            flex-shrink: 0;
+        }
+
+        .header-content h1 {
+            font-size: 32px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 0.5rem;
+        }
+
+        .header-content p {
+            font-size: 15px;
+            color: #999;
+        }
+
+        /* HERO */
+        .hero {
+            background: linear-gradient(135deg, rgba(255, 107, 53, 0.15) 0%, rgba(255, 107, 53, 0.05) 100%);
+            padding: 3rem 2rem;
+            display: flex;
+            gap: 3rem;
+            align-items: center;
+            border-bottom: 1px solid #2a2f38;
+        }
+
+        .hero-avatar {
+            width: 180px;
+            height: 220px;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 3px solid #ff6b35;
+            flex-shrink: 0;
+            box-shadow: 0 10px 40px rgba(255, 107, 53, 0.2);
+        }
+
+        .hero-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero-content h2 {
+            font-size: 26px;
+            font-weight: 700;
+            color: #ff6b35;
+            margin-bottom: 1rem;
+        }
+
+        .hero-content p {
+            font-size: 15px;
+            color: #ccc;
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+
+        /* NAVIGATION */
+        .nav-container {
+            background: #0f1419;
+            border-bottom: 1px solid #2a2f38;
+            overflow-x: auto;
+            padding: 0 2rem;
+            display: flex;
+            gap: 0;
+        }
+
+        .nav-item {
+            padding: 1.2rem 1.5rem;
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            color: #666;
+            border-bottom: 3px solid transparent;
+            white-space: nowrap;
+            transition: all 0.3s;
+        }
+
+        .nav-item:hover {
+            color: #ff6b35;
+            background: rgba(255, 107, 53, 0.08);
+        }
+
+        .nav-item.active {
+            color: #ff6b35;
+            border-bottom-color: #ff6b35;
+        }
+
+        /* CONTENT */
+        .content {
+            padding: 3rem 2rem;
+            min-height: 60vh;
+        }
+
+        .bloco {
+            display: none;
+            animation: fadeIn 0.4s ease-in;
+        }
+
+        .bloco.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 2rem;
+            padding-bottom: 1.2rem;
+            border-bottom: 3px solid #ff6b35;
+        }
+
+        /* METRICS */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .metric {
+            background: #1a1f28;
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid #2a2f38;
+            transition: all 0.3s;
+        }
+
+        .metric:hover {
+            border-color: #ff6b35;
+            background: rgba(255, 107, 53, 0.05);
+        }
+
+        .metric-label {
+            font-size: 11px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+
+        .metric-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: #ff6b35;
+        }
+
+        /* CARDS */
+        .card {
+            background: #1a1f28;
+            border: 1px solid #2a2f38;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s;
+        }
+
+        .card:hover {
+            border-color: #ff6b35;
+            background: rgba(255, 107, 53, 0.04);
+        }
+
+        .card p {
+            color: #ccc;
+            font-size: 14px;
+            line-height: 1.8;
+            margin: 0;
+        }
+
+        /* HIGHLIGHT BOX */
+        .highlight {
+            background: rgba(255, 107, 53, 0.12);
+            border-left: 4px solid #ff6b35;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 12px 12px 0;
+        }
+
+        .highlight p {
+            color: #ddd;
+            font-size: 14px;
+            line-height: 1.8;
+            margin: 0;
+        }
+
+        .highlight strong {
+            color: #ff6b35;
+        }
+
+        /* PILAR */
+        .pilar {
+            background: #1a1f28;
+            border-left: 4px solid #ff6b35;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.2rem;
+            border: 1px solid #2a2f38;
+            border-left: 4px solid #ff6b35;
+        }
+
+        .pilar h3 {
+            font-size: 15px;
+            font-weight: 700;
+            color: #ff6b35;
+            margin-bottom: 0.8rem;
+        }
+
+        .pilar p {
+            color: #999;
+            font-size: 13px;
+            line-height: 1.7;
+            margin: 0;
+        }
+
+        /* OFERTAS */
+        .ofertas-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .oferta-card {
+            background: #1a1f28;
+            border: 1px solid #2a2f38;
+            border-radius: 12px;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .oferta-card:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #ff6b35, #ff8c4f);
+        }
+
+        .oferta-card:hover {
+            border-color: #ff6b35;
+            transform: translateY(-6px);
+            box-shadow: 0 12px 30px rgba(255, 107, 53, 0.15);
+        }
+
+        .oferta-name {
+            font-size: 18px;
+            font-weight: 700;
+            color: #ff6b35;
+            margin-bottom: 0.5rem;
+        }
+
+        .oferta-subtitle {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 1.2rem;
+        }
+
+        .oferta-price {
+            font-size: 26px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 1.5rem;
+        }
+
+        .oferta-item {
+            font-size: 13px;
+            color: #999;
+            padding: 0.6rem 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.8rem;
+        }
+
+        .oferta-item:before {
+            content: '✓';
+            color: #ff6b35;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        /* ROADMAP */
+        .roadmap {
+            display: flex;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .roadmap-stage {
+            flex: 1;
+        }
+
+        .roadmap-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: #ff6b35;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+        }
+
+        .roadmap-desc {
+            font-size: 13px;
+            color: #999;
+            line-height: 1.7;
+        }
+
+        /* FOOTER */
+        .footer {
+            padding: 2rem;
+            text-align: center;
+            color: #666;
+            font-size: 12px;
+            border-top: 1px solid #2a2f38;
+            background: #0f1419;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .header-content h1 {
+                font-size: 24px;
+            }
+
+            .hero {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .hero-avatar {
+                width: 150px;
+                height: 180px;
+            }
+
+            .content {
+                padding: 1.5rem 1rem;
+            }
+
+            .roadmap {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .nav-container {
+                padding: 0 1rem;
+            }
+
+            .section-title {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- HEADER -->
+        <div class="header">
+            <div class="header-logo">FORGE<br>VENDAS</div>
+            <div class="header-content">
+                <h1>Método SM de Estrutura Financeira</h1>
+                <p>Playbook de Estruturação Estratégica — Sheila Machado</p>
+            </div>
+        </div>
+
+        <!-- HERO -->
+        <div class="hero">
+            <div class="hero-avatar">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='220'%3E%3Crect fill='%23666' width='180' height='220'/%3E%3Ctext x='90' y='110' font-size='14' fill='white' text-anchor='middle' dominant-baseline='middle'%3EAdicione sua foto%3C/text%3E%3C/svg%3E" alt="Mentor">
+            </div>
+            <div class="hero-content">
+                <h2>Estrutura Financeira Premium</h2>
+                <p>Transformação estratégica para empresários que faturam bem mas vivem no aperto financeiro. Este playbook estrutura uma mentoria consultiva em grupo focada nos 4 pilares: diagnóstico, reestruturação, estratégia e crédito inteligente.</p>
+            </div>
+        </div>
+
+        <!-- NAVIGATION -->
+        <div class="nav-container" id="nav">
+            <button class="nav-item active" onclick="toggleBloco(0)">1. Identificação</button>
+            <button class="nav-item" onclick="toggleBloco(1)">2. Negócio</button>
+            <button class="nav-item" onclick="toggleBloco(2)">3. Identidade</button>
+            <button class="nav-item" onclick="toggleBloco(3)">4. ICP</button>
+            <button class="nav-item" onclick="toggleBloco(4)">5. Dores</button>
+            <button class="nav-item" onclick="toggleBloco(5)">6. Jornada</button>
+            <button class="nav-item" onclick="toggleBloco(6)">7. Solução</button>
+            <button class="nav-item" onclick="toggleBloco(7)">8. Oferta</button>
+            <button class="nav-item" onclick="toggleBloco(8)">9. Captação</button>
+            <button class="nav-item" onclick="toggleBloco(9)">10. Posição</button>
+            <button class="nav-item" onclick="toggleBloco(10)">11. Ações</button>
+        </div>
+
+        <!-- CONTENT -->
+        <div class="content">
+            <!-- BLOCO 1: IDENTIFICAÇÃO -->
+            <div class="bloco active">
+                <div class="section-title">Identificação</div>
+                <div class="metrics-grid">
+                    <div class="metric">
+                        <div class="metric-label">Mentorada</div>
+                        <div class="metric-value">Sheila Machado</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-label">Data</div>
+                        <div class="metric-value">05 de maio de 2026</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-label">Tipo</div>
+                        <div class="metric-value">Sessão Estratégica</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-label">Status</div>
+                        <div class="metric-value">Pronto para Lançamento</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BLOCO 2: NEGÓCIO -->
+            <div class="bloco">
+                <div class="section-title">Perfil do Negócio</div>
+                <div class="metrics-grid">
+                    <div class="metric">
+                        <div class="metric-label">Segmento</div>
+                        <div class="metric-value">Consultoria Financeira</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-label">Faturamento</div>
+                        <div class="metric-value">R$ 540k/ano</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-label">Clientes Ativos</div>
+                        <div class="metric-value">8 empresas</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-label">Ticket Médio</div>
+                        <div class="metric-value">R$ 5-10k/mês</div>
+                    </div>
+                </div>
+                <div class="card">
+                    <p><strong style="color: #ff6b35;">Desafio:</strong> Sheila trabalha 85% sozinha com suporte de equipe. Objetivo: faturar ≥ R$ 540k/ano com menos sobrecarga pessoal via mentoria em grupo pequeno (3-6 empresas).</p>
+                </div>
+            </div>
+
+            <!-- BLOCO 3: IDENTIDADE -->
+            <div class="bloco">
+                <div class="section-title">Identidade & Propósito</div>
+                <div class="highlight">
+                    <p><strong>O Que Energiza Sheila:</strong> "Pegar uma empresa desorganizada, pressionada, quase quebrando… e colocar ordem no financeiro. Ver o empresário sair do aperto, voltar a ter controle, clareza e tranquilidade nas decisões."</p>
+                </div>
+                <div class="highlight">
+                    <p><strong>Propósito Legado:</strong> "Eu quero mudar a forma como o empresário enxerga o financeiro. Transformar algo que é visto como secundário em base de decisão estratégica."</p>
+                </div>
+                <div class="card">
+                    <h3 style="color: #ff6b35; font-size: 16px; font-weight: 700; margin-bottom: 1rem;">Inimigo em Comum</h3>
+                    <p>✗ Consultoria genérica e superficial<br>
+                    ✗ Promessas de crescimento sem estrutura<br>
+                    ✗ Crédito como solução mágica<br>
+                    ✗ "Se eu vender mais, resolve"<br><br>
+                    <strong style="color: #ff6b35;">Frase-Síntese:</strong> "Empresa não quebra por falta de faturamento. Quebra por falta de controle."</p>
+                </div>
+            </div>
+
+            <!-- BLOCO 4: ICP -->
+            <div class="bloco">
+                <div class="section-title">ICP — Perfil Ideal do Cliente</div>
+                <div class="metrics-grid">
+                    <div class="metric">
+                        <div class="metric-label">Faturamento</div>
+                        <div class="metric-value">R$ 50k-500k/mês</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-label">Funcionários</div>
+                        <div class="metric-value">3-20 pessoas</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-label">Estágio</div>
+                        <div class="metric-value">Operação Ativa</div>
+                    </div>
+                </div>
+                <div class="pilar">
+                    <h3>Cliente Ideal</h3>
+                    <p>"Empresa que fatura entre 80-200k/mês, estruturada operacionalmente, mas completamente desorganizada no financeiro. Esse é ideal porque já tem operação, já tem faturamento, e o que falta é estrutura."</p>
+                </div>
+                <div class="card">
+                    <p><strong style="color: #ff6b35;">Quem NÃO servir:</strong><br>
+                    ✗ Empresário que não quer olhar números<br>
+                    ✗ Quer solução rápida sem base<br>
+                    ✗ Acha que crédito resolve tudo<br>
+                    ✗ Ainda está começando (sem faturamento)<br>
+                    ✗ Não executa</p>
+                </div>
+            </div>
+
+            <!-- BLOCO 5: DORES -->
+            <div class="bloco">
+                <div class="section-title">Dores — Caminho da Pedra</div>
+                <div class="pilar">
+                    <h3>Dor 1: Faturam, Mas Não Sobra Dinheiro</h3>
+                    <p>A empresa gira, entra dinheiro, mas no fim do mês não sobra nada. Impacto: sobrevivência (não lucro), sem margem para investimento, pressão emocional constante.</p>
+                </div>
+                <div class="pilar">
+                    <h3>Dor 2: Dívida Desorganizada Pressionando o Caixa</h3>
+                    <p>Empréstimo + cartão + antecipação = custo invisível. Impacto: caixa pressionado por múltiplas obrigações, perda de poder de negociação, impossibilidade de renegociar.</p>
+                </div>
+                <div class="pilar">
+                    <h3>Dor 3: Falta de Controle e Decisão no Escuro</h3>
+                    <p>Sem fluxo de caixa estruturado, sem indicador. Decisões tomadas no feeling. Impacto: impossibilidade de saber se lucra, zero previsibilidade, gestão reativa.</p>
+                </div>
+                <div class="highlight">
+                    <p><strong>Verdade Central:</strong> "O problema quase nunca é falta de venda. É falta de estrutura."</p>
+                </div>
+            </div>
+
+            <!-- BLOCO 6: JORNADA -->
+            <div class="bloco">
+                <div class="section-title">Jornada de Sheila</div>
+                <div class="highlight">
+                    <p><strong>Momento Decisivo:</strong> "Percebi que o problema das empresas não era falta de dinheiro. Era falta de controle. Passei de 'resolver problema' para 'estruturar método'."</p>
+                </div>
+                <div class="card">
+                    <p><strong style="color: #ff6b35;">Se pudesse voltar no tempo:</strong> "Teria evitado decisões erradas, organizado o financeiro mais cedo, não deixado a dívida crescer. A maioria das empresas não perde dinheiro porque não vende. Perde porque demora pra organizar."</p>
+                </div>
+            </div>
+
+            <!-- BLOCO 7: SOLUÇÃO -->
+            <div class="bloco">
+                <div class="section-title">Solução — Os 4 Pilares</div>
+                <div class="pilar">
+                    <h3>1. Diagnóstico (Verdade Financeira)</h3>
+                    <p>Entender exatamente o que está acontecendo com a empresa → Empresário sai da negação e entra em ação</p>
+                </div>
+                <div class="pilar">
+                    <h3>2. Reestruturação</h3>
+                    <p>Organizar o financeiro (fluxo de caixa, custos, contratos, dívidas) → Empresa ganha respiro financeiro</p>
+                </div>
+                <div class="pilar">
+                    <h3>3. Estratégia Financeira</h3>
+                    <p>Tomar decisões com base em dados e estrutura → Empresário confia nas decisões que toma</p>
+                </div>
+                <div class="pilar">
+                    <h3>4. Crédito Inteligente</h3>
+                    <p>Usar crédito como ferramenta estratégica (rede de 80+ parceiros bancários) → Empresa cresce com segurança</p>
+                </div>
+            </div>
+
+            <!-- BLOCO 8: OFERTA -->
+            <div class="bloco">
+                <div class="section-title">Oferta — Método SM de Estrutura Financeira</div>
+                <div class="ofertas-grid">
+                    <div class="oferta-card">
+                        <div class="oferta-name">START</div>
+                        <div class="oferta-subtitle">Para empreendedores em tração (50k-200k/mês)</div>
+                        <div class="oferta-price">R$ 5.997</div>
+                        <div class="oferta-item">8 encontros quinzenais ao vivo</div>
+                        <div class="oferta-item">1 sessão individual diagnóstico</div>
+                        <div class="oferta-item">Plano de ação prático customizado</div>
+                        <div class="oferta-item">Planilha de Fluxo de Caixa</div>
+                        <div class="oferta-item">Acesso grupo WhatsApp privado</div>
+                        <div class="oferta-item">Biblioteca com cases de sucesso</div>
+                    </div>
+                    <div class="oferta-card">
+                        <div class="oferta-name">PREMIUM</div>
+                        <div class="oferta-subtitle">Para empreendedores em escalabilidade (200k-500k/mês)</div>
+                        <div class="oferta-price">R$ 10.997</div>
+                        <div class="oferta-item">8 encontros quinzenais ao vivo</div>
+                        <div class="oferta-item">3 sessões 1:1 customizadas</div>
+                        <div class="oferta-item">Mapa de 90 Dias estratégico</div>
+                        <div class="oferta-item">Planilhas (Fluxo + Análise de Dívida)</div>
+                        <div class="oferta-item">Rede de 80+ parceiros bancários</div>
+                        <div class="oferta-item">Grupo WhatsApp privado com Sheila</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BLOCO 9: CAPTAÇÃO -->
+            <div class="bloco">
+                <div class="section-title">Captação & Palestras</div>
+                <div class="card">
+                    <p><strong style="color: #ff6b35;">Canais Principais:</strong> LinkedIn | Eventos Empresariais | Grupos de Empreendedores | Contadores Parceiros | Indicação de Clientes</p>
+                </div>
+                <div class="card">
+                    <p><strong style="color: #ff6b35;">CTA Principal: SM Raio-X Financeiro</strong><br>
+                    Diagnóstico financeiro completo (90 min) como porta de entrada.<br><br>
+                    <strong style="color: #ff6b35;">Regra de Ouro:</strong> Não venda mentoria direto da palestra. Ofereça diagnóstico que qualifica e demonstra valor.</p>
+                </div>
+                <div class="card">
+                    <p><strong style="color: #ff6b35;">3 Pilares da Palestra (45 min total)</strong><br><br>
+                    <strong style="color: #ff6b35;">Pilar 1 (10 min):</strong> "O Problema da Sua Empresa Não É Faturamento" — Quebra crenças<br>
+                    <strong style="color: #ff6b35;">Pilar 2 (15 min):</strong> "Por Que Empresas Quebram Mesmo Faturando?" — Identifica realidade<br>
+                    <strong style="color: #ff6b35;">Pilar 3 (15 min):</strong> "Os 4 Pilares da Estrutura Financeira" — Mostra caminho<br>
+                    <strong style="color: #ff6b35;">CTA (5 min):</strong> Convite para SM Raio-X Financeiro</p>
+                </div>
+            </div>
+
+            <!-- BLOCO 10: POSICIONAMENTO -->
+            <div class="bloco">
+                <div class="section-title">Posicionamento</div>
+                <div class="highlight">
+                    <p style="font-size: 16px; font-weight: 600;">"Eu organizo o financeiro de empresas que faturam, mas vivem no aperto."</p>
+                </div>
+                <div class="card">
+                    <p><strong style="color: #ff6b35; display: block; margin-bottom: 1rem;">Versões Alternativas da Frase:</strong>
+                    • "Seu problema não é faturamento. É falta de controle."<br>
+                    • "Empresa quebra faturando. Eu evito isso."<br>
+                    • "Mais dinheiro sem estrutura só piora o problema."</p>
+                </div>
+                <div class="card">
+                    <p><strong style="color: #ff6b35; display: block; margin-bottom: 1rem;">3 Valores Inegociáveis</strong></p>
+                    <div style="margin: 1rem 0;">
+                        <p><strong style="color: #ff6b35;">CLAREZA</strong><br>
+                        <span style="color: #999; font-size: 13px;">Enxergar o financeiro como ele realmente é — sem ilusão, sem maquiagem, sem achismo.</span></p>
+                    </div>
+                    <div style="margin: 1rem 0;">
+                        <p><strong style="color: #ff6b35;">ESTRUTURA</strong><br>
+                        <span style="color: #999; font-size: 13px;">Organizar antes de crescer — processo, controle e base sólida.</span></p>
+                    </div>
+                    <div style="margin: 1rem 0;">
+                        <p><strong style="color: #ff6b35;">RESPONSABILIDADE</strong><br>
+                        <span style="color: #999; font-size: 13px;">Assumir o controle do negócio — parar de terceirizar culpa, executar conscientemente.</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BLOCO 11: AÇÕES -->
+            <div class="bloco">
+                <div class="section-title">Próximos Passos — Roadmap 30/60/90</div>
+                <div class="roadmap">
+                    <div class="roadmap-stage">
+                        <div class="roadmap-title">Dias 0-30: Validação</div>
+                        <div class="roadmap-desc">Rodar SM Raio-X Financeiro com 5 prospects. Fechar 2-3 primeiros clientes. Começar primeira mentoria em modo pilot. Ajustar discurso baseado em feedback real.</div>
+                    </div>
+                    <div class="roadmap-stage">
+                        <div class="roadmap-title">Dias 30-60: Refinamento</div>
+                        <div class="roadmap-desc">Ajustar pitch. Melhorar perguntas diagnósticas. Padronizar processo de mentoria. Coletar resultados (caixa recuperado, dívida reduzida). Fazer video-testimunial com cliente.</div>
+                    </div>
+                    <div class="roadmap-stage">
+                        <div class="roadmap-title">Dias 60-90: Escala</div>
+                        <div class="roadmap-desc">Estruturar canal de aquisição (palestra, parceria, outbound). Rodar mais clientes (3-5 adicionais). Repetir processo. Documentar método em playbook interno.</div>
+                    </div>
+                </div>
+                <div class="card" style="margin-top: 2rem;">
+                    <p><strong style="color: #ff6b35;">Se Sheila fizer só isso até quarta-feira:</strong><br><br>
+                    ✓ Já consegue vender com confiança<br>
+                    ✓ Já consegue entregar com qualidade<br>
+                    ✓ Já consegue cobrar preço premium<br>
+                    ✓ Já tem caminho claro pra escalar sem depender 100% dela</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <div class="footer">
+            <p>Playbook Sheila Machado | Método SM de Estrutura Financeira | Forge Vendas | Desenvolvido com precisão estratégica</p>
+        </div>
+    </div>
+
+    <script>
+        function toggleBloco(index) {
+            const blocos = document.querySelectorAll('.bloco');
+            const navItems = document.querySelectorAll('.nav-item');
+            
+            blocos.forEach((b, i) => {
+                b.classList.toggle('active', i === index);
+            });
+            
+            navItems.forEach((n, i) => {
+                n.classList.toggle('active', i === index);
+            });
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
